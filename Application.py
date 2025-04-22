@@ -21,7 +21,7 @@ def CreateGUI():
     display = ctk.CTkTextbox(window, wrap="word", text_color="orange")
     display.pack(pady=10, padx=20, fill="both", expand=True)
     
-    displayBtn = ctk.CTkButton(window, text="Display selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
+    displayBtn = ctk.CTkButton(window, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
     displayBtn.pack()
     
     AIComment = ctk.CTkButton(window, text="Comment file", command=AIAutoCommenter)
