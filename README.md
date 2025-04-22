@@ -7,7 +7,7 @@ This project applies **AI-Driven Development (AIDD)** principles in a practical 
 ## Features
 
 - **Select `.py` Files** – Select any Python script and display the file in the GUI.
-- **AI-Powered Commenting** – Generates clear comments using OpenAI API.
+- **AI-Powered Commenting** – Generates clear comments using local LLM model on machiene.
 - **Download Updated Files** – Save the updated version locally using the GUI.
 - **Graphical Interface** – Built with `tkinter` and `customtkinter` for a modern, intuitive UI.
 - **Standalone Executable** – Packaged with `PyInstaller` to run on Windows without Python installed.
@@ -15,7 +15,7 @@ This project applies **AI-Driven Development (AIDD)** principles in a practical 
 ## Technologies Used
 
 - **Python 3.11**
-- **OpenAI API**
+- **Llama LLM**
 - **Tkinter** / **customtkinter**
 - **PyInstaller**
 
