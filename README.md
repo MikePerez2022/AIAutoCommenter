@@ -38,8 +38,8 @@ python Application.py
 ## How To Use
 
 1. Select a `.py` file through the GUI.
-2. Load the file into the application & display it.
-3. Click the AI comment button and see the new AI generated comments.
+2. Click the load btn to Load the file into the application & display it.
+3. Click the AI comment button to create and see the new AI generated comments.
 4. Finally, click the download button and select a folder location. (select the same directory you have the original in to overwrite the file)
 
 
