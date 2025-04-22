@@ -4,8 +4,6 @@ A user-friendly Python application that uses AI to analyze and auto-generate com
 
 This project applies **AI-Driven Development (AIDD)** principles in a practical tool, complete with a clean graphical interface built using `Tkinter`. It is designed to run as a standalone Windows executable, making it easy to use without needing Python installed.
 
----
-
 ## Features
 
 - **Select `.py` Files** – Select any Python script and display the file in the GUI.
@@ -14,16 +12,12 @@ This project applies **AI-Driven Development (AIDD)** principles in a practical 
 - **Graphical Interface** – Built with `tkinter` and `customtkinter` for a modern, intuitive UI.
 - **Standalone Executable** – Packaged with `PyInstaller` to run on Windows without Python installed.
 
----
-
 ## Technologies Used
 
 - **Python 3.11**
 - **OpenAI API**
 - **Tkinter** / **customtkinter**
 - **PyInstaller**
-
----
 
 ## Getting Started
 
