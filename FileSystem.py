@@ -8,7 +8,7 @@ def DownloadFileGUI(filename, contents):
     
     if(filename and contents):
         try:
-            CreateFile(saveFile, contents.get(0.0, ctk.END))
+            CreateFile(saveFile, contents)
         except FileExistsError as e:
             print(f"An error occured while creating a file {e}")
     else:

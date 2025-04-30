@@ -4,6 +4,7 @@ import AutoCommenterAI as ac;
 import customtkinter as ctk;
 
 def CreateGUI():
+    newText = ""
     window = ctk.CTk()
     window.title("Code Auto Commenter")
     ctk.set_appearance_mode("dark")
@@ -24,15 +25,19 @@ def CreateGUI():
     displayBtn = ctk.CTkButton(window, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
     displayBtn.pack()
     
-    AIComment = ctk.CTkButton(window, text="Comment file", command=lambda: AIAutoCommenter(display.get()))
+    AIComment = ctk.CTkButton(window, text="Comment file", command=lambda: CommentAndDisplay(display))
     AIComment.pack()
     
-    downloadBtn = ctk.CTkButton(window, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display))
+    downloadBtn = ctk.CTkButton(window, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display.get(0.0, ctk.END)))
     downloadBtn.pack(pady=20)
     
     window.mainloop()
 
-def AIAutoCommenter():
-    ac.AIComment()
+
+def CommentAndDisplay(display):
+    output = ac.AIComment(display.get(0.0, ctk.END))
+    display.delete(1.0, ctk.END)
+    display.insert(1.0, output)
+
 
 CreateGUI()
