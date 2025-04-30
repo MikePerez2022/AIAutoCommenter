@@ -4,7 +4,6 @@ import AutoCommenterAI as ac;
 import customtkinter as ctk;
 
 def CreateGUI():
-    newText = ""
     window = ctk.CTk()
     window.title("Code Auto Commenter")
     ctk.set_appearance_mode("dark")
