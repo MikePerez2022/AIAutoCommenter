@@ -1,4 +1,8 @@
 from llama_cpp import Llama
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-j-6B")
 
 # Path to your downloaded GGUF model
 model_path = r"C:\Users\Mike\Desktop\Projx\AIAutoCommenter\Models\llama-3.2-1b-instruct-q4_k_m.gguf"
@@ -6,14 +10,16 @@ model_path = r"C:\Users\Mike\Desktop\Projx\AIAutoCommenter\Models\llama-3.2-1b-i
 llm = Llama(model_path=model_path, n_ctx=2048, n_threads=6)
 
 def comment_code(code: str) -> str:
-    #prompt = "Tell me 5 jokes"
     prompt = f"""You will add descriptive pthon comments to this Python code.
     ### Original Code:
     {code}
     ### Commented Code:
     """
-    output = llm(prompt, echo=False, max_tokens=800)
-    return output["choices"][0]["text"]
+    inputs = tokenizer(prompt, return_tensors="pt")
+    outputs = model.generate(**inputs, max_new_tokens=100)
+    #output = llm(prompt, echo=False, max_tokens=800)
+    #return output["choices"][0]["text"]
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 def AIComment(code) -> str:
     output = comment_code(code)
