@@ -1,5 +1,4 @@
 import FileSystem as fs;
-#import PyInstaller as PI;
 import AutoCommenterAI as ac;
 import customtkinter as ctk;
 
