@@ -33,9 +33,11 @@ def CreateGUI():
 
 
 def CommentAndDisplay(display):
-    output = ac.AIComment(display.get(0.0, ctk.END))
+    output = ac.comment_code(display.get(0.0, ctk.END))
+    print("Updating Display...")
     display.delete(1.0, ctk.END)
     display.insert(1.0, output)
+    print("Display Updated")
 
 
 CreateGUI()
