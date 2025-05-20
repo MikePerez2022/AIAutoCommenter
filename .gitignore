@@ -172,3 +172,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# VS Code settings
+.vscode/
+
+# Hugging Face cache
+.cache/huggingface/
+
+# Saved AI models
+models/
+checkpoints/
+*.bin
+*.pt
