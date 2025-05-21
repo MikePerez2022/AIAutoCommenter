@@ -4,13 +4,17 @@ tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
 model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-j-6B")
 
 def comment_code(code: str) -> str:
-    prompt = f"You will add descriptive python comments to this Python code.\nCode: {code} \n Output: "
+    prompt = f"""You are a software developer and you will add descriptive comments to this Python code.
+    Original code: \n{code} 
+    
+    Generation output: \n
+    """
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     
     result = ""
     
     print("generating...")
-    outputs = model.generate(**inputs, max_new_tokens=800, do_sample=True, temperature=0.7)
+    outputs = model.generate(**inputs, max_new_tokens=1000, do_sample=True, temperature=0.7)
     print("text generated")
     output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
     
