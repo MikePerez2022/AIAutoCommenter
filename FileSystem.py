@@ -1,5 +1,6 @@
 import customtkinter as ctk;
 from customtkinter import filedialog as fd;
+import TextColor as tc
 import os;
 
 def DownloadFileGUI(filename, contents):
@@ -26,7 +27,7 @@ def DisplayFileGUI(filepath, display):
         try:
             with open(filepath, 'r') as file:
                 display.insert(1.0, file.read())
-                
+                tc.apply_syntax_highlighting(display, display.get(0.0, ctk.END))
         except Exception as e:
             display.insert(1.0, f"Error opening file: {e}")
 
