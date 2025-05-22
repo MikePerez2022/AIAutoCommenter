@@ -17,7 +17,7 @@ def CreateGUI():
     selectFile = ctk.CTkButton(window, text="Select File", command=lambda: fs.SelectFileGUI(filePath))
     selectFile.pack()
     
-    display = ctk.CTkTextbox(window, wrap="word", text_color="orange")
+    display = ctk.CTkTextbox(window, wrap="word", text_color="White")
     display.pack(pady=10, padx=20, fill="both", expand=True)
     
     displayBtn = ctk.CTkButton(window, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
