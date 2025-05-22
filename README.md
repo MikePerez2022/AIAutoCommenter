@@ -2,7 +2,7 @@
 
 This is a user-friendly Python app that uses local AI models to analyze and auto-generate helpful comments for Python code. Simply select a `.py` file using the GUI, click the **AI Comment** button, and the app will inject human-readable explanations directly into the code.
 
-Built with a clean, modern interface using `tkinter` and `customtkinter`, the app is packaged as a standalone Windows executable for ease of use — no Python installation required.
+Built with a clean, modern interface using `tkinter` and `customtkinter`, the app is packaged as a Windows executable for ease of use — only an ollama instalation is required.
 
 ---
 
@@ -12,7 +12,7 @@ Built with a clean, modern interface using `tkinter` and `customtkinter`, the ap
 * **AI-Powered Commenting** – Leverages a locally running LLM (e.g., `codellama:7b` via Ollama) to generate useful, descriptive comments.
 * **Save Updated Code** – Save the modified, commented version of the file with one click & a folder select.
 * **Modern GUI** – Built with `tkinter` and `customtkinter` for a polished user experience.
-* **Runs as Standalone Executable** – Packaged with `PyInstaller` for Windows. No need to install Python.
+* **Runs as Executable** – Packaged with `PyInstaller` for Windows. No need to install Python. Only need to install ollama.
 
 ---
 
