@@ -16,7 +16,7 @@ def DownloadFileGUI(filename, contents):
         print("No file is selected or there are no contents displayed")
 
 def SelectFileGUI(pathTxt):
-    path = fd.askopenfilename(filetypes=[("Python Files", "*.py")])
+    path = fd.askopenfilename(filetypes=[("All Code Files", "*.py *.js *.html *.c *.cpp *.cs *.java")])
     pathTxt.delete(0, ctk.END)
     pathTxt.insert(0, path)
 
