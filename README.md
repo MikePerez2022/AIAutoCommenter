@@ -64,8 +64,21 @@ Make sure you have:
 ## Requirements
 
 * **Windows OS**
-* **Ollama installed and running with `codellama:7b`**
+* **Ollama installed** – [Download from ollama.com](https://ollama.com)
+* **Model pulled and running:**
+  The app communicates with a local AI model through Ollama. Before running the app, make sure the required model (`codellama:7b`) has been pulled.
 
-  ```bash
-  ollama run codellama:7b
-  ```
+### ⚙️ First-time setup (run this once in your terminal or command prompt):
+
+```bash
+ollama pull codellama:7b
+```
+
+After pulling the model, start it like this (if not running already):
+
+```bash
+ollama run codellama:7b
+```
+
+> ⚠️ If the model hasn’t been pulled before launching the app, it will not work and may return a connection or model-not-found error.
+
