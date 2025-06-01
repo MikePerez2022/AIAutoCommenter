@@ -74,7 +74,7 @@ Make sure you have:
 ollama pull codellama:7b
 ```
 
-After pulling the model, start it like this (if not running already):
+or:
 
 ```bash
 ollama run codellama:7b
