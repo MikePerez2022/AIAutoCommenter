@@ -27,14 +27,17 @@ def CreateGUI():
     display.pack(fill="both", expand=True)
     tc.configure_tags(display)
     
-    displayBtn = ctk.CTkButton(window, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
-    displayBtn.pack(pady=10)
+    actions_frame = ctk.CTkFrame(window)
+    actions_frame.pack(pady=10)
     
-    AIComment = ctk.CTkButton(window, text="Comment file", command=lambda: CommentAndDisplay(display))
-    AIComment.pack()
+    displayBtn = ctk.CTkButton(actions_frame, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
+    displayBtn.grid(row=0, column=0, padx=5)
     
-    downloadBtn = ctk.CTkButton(window, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display.get(0.0, tk.END)))
-    downloadBtn.pack(pady=10)
+    AIComment = ctk.CTkButton(actions_frame, text="Comment file", command=lambda: CommentAndDisplay(display))
+    AIComment.grid(row=0, column=1, padx=5)
+    
+    downloadBtn = ctk.CTkButton(actions_frame, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display.get(0.0, tk.END)))
+    downloadBtn.grid(row=0, column=2, padx=5)
     
     window.mainloop()
 

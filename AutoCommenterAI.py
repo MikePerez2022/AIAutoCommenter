@@ -14,15 +14,12 @@ def comment_code(code: str) -> str:
     response = ollama.chat(model=modelName, messages=[{ "role": "user", "content": prompt }])
     result = response['message']['content'].strip()
     
-    # try:
-    #     if result.startswith("'''") and result.endswith("'''"):
-    #         result = result[3:-3].strip()
-    #     elif result.startswith("```python") and result.endswith("```"):
-    #         result = result[9:-3].strip()
-    #     elif result.startswith("```") and result.endswith("```"):
-    #         result = result[3:-3].strip()
-    # except Exception as e:
-    #     return f"Error: {e}"
+    if result.startswith("'''") and result.endswith("'''"):
+        result = result[3:-3].strip()
+    elif result.startswith("```python") and result.endswith("```"):
+        result = result[9:-3].strip()
+    elif result.startswith("```") and result.endswith("```"):
+        result = result[3:-3].strip()
     
     print("Response received.")
     
