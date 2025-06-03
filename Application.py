@@ -43,15 +43,6 @@ def CreateGUI():
     window.mainloop()
 
 
-# def CommentAndDisplay(display):
-#     output = ac.comment_code(display.get(0.0, tk.END))
-#     print("Updating Display...")
-#     display.delete(1.0, tk.END)
-#     tc.apply_syntax_highlighting(display,output)
-#     print("Display Updated")
-
-
-
 def CommentAndDisplay(display):
     def strip_code_fences(text):
         text = text.strip()
@@ -67,6 +58,8 @@ def CommentAndDisplay(display):
         code = display.get(0.0, tk.END)
         filename = "file.py"  # Or get from filePath if available
         display.delete(1.0, tk.END)
+        display.insert(tk.END, "Generating...\n")
+        display.see(tk.END)
         last_chunk = ""
         for chunk in ac.comment_code(code):
             cleaned_chunk = strip_code_fences(chunk)
