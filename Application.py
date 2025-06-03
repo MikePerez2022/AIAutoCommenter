@@ -53,25 +53,33 @@ def CreateGUI():
 
 
 def CommentAndDisplay(display):
+    def strip_code_fences(text):
+        text = text.strip()
+        if text.startswith("'''") and text.endswith("'''"):
+            return text[3:-3].strip()
+        if text.startswith("```python") and text.endswith("```"):
+            return text[9:-3].strip()
+        if text.startswith("```") and text.endswith("```"):
+            return text[3:-3].strip()
+        return text
+
     def task():
         code = display.get(0.0, tk.END)
-        
-        # Show loading message
+        filename = "file.py"  # Or get from filePath if available
         display.delete(1.0, tk.END)
-        display.insert(tk.END, "Loading... Please wait.\n")
-        
-        # Run the potentially slow AI commenting
-        output = ac.comment_code(code)
-        
-        # Update the text widget with the commented code on the main thread
-        def update_display():
-            display.delete(1.0, tk.END)
-            tc.apply_syntax_highlighting(display, output)#Add file name
+        last_chunk = ""
+        for chunk in ac.comment_code(code):
+            cleaned_chunk = strip_code_fences(chunk)
+            last_chunk = cleaned_chunk
+            def update_display(chunk=cleaned_chunk):
+                display.delete(1.0, tk.END)
+                display.insert(tk.END, chunk)
+                tc.apply_syntax_highlighting(display, chunk, filename)
+            display.after(0, update_display)
+        def highlight_final():
+            tc.apply_syntax_highlighting(display, last_chunk, filename)
             print("Display Updated")
-
-        display.after(0, update_display)
-
-    # Run the task in a background thread so the UI doesn't freeze
+        display.after(0, highlight_final)
     threading.Thread(target=task, daemon=True).start()
 
 
