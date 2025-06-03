@@ -1,14 +1,9 @@
 import ollama
-import requests
 
-modelName = "codellama:7b"
+modelName = "wizardcoder"
 
 def comment_code(code: str) -> str:
-    prompt = f"""Insert descriptive comments into this code so an amature can understand the code.
-    Original code:
-    {code}
-    Please output the commented version of the code:
-    """
+    prompt = f"Insert descriptive comments into this code:{code}"
     
     print("Sending prompt to Ollama...")
     response = ollama.chat(model=modelName, messages=[{ "role": "user", "content": prompt }])
@@ -24,16 +19,3 @@ def comment_code(code: str) -> str:
     print("Response received.")
     
     return result
-
-def AIComment(code) -> str:
-    output = ""
-    if not is_ollama_running():
-        output = comment_code(code)
-    return output
-
-def is_ollama_running():
-    try:
-        #requests.get("http://localhost:11434")
-        return True
-    except:
-        return False

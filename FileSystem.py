@@ -27,7 +27,7 @@ def DisplayFileGUI(filepath, display):
         try:
             with open(filepath, 'r') as file:
                 display.insert(1.0, file.read())
-                tc.apply_syntax_highlighting(display, display.get(0.0, ctk.END))
+                tc.apply_syntax_highlighting(display, display.get(0.0, ctk.END), file.name)
         except Exception as e:
             display.insert(1.0, f"Error opening file: {e}")
 

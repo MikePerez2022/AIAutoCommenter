@@ -3,6 +3,7 @@ import AutoCommenterAI as ac;
 import customtkinter as ctk;
 import tkinter as tk;
 import TextColor as tc
+import threading
 
 def CreateGUI():
     window = ctk.CTk()
@@ -42,12 +43,36 @@ def CreateGUI():
     window.mainloop()
 
 
+# def CommentAndDisplay(display):
+#     output = ac.comment_code(display.get(0.0, tk.END))
+#     print("Updating Display...")
+#     display.delete(1.0, tk.END)
+#     tc.apply_syntax_highlighting(display,output)
+#     print("Display Updated")
+
+
+
 def CommentAndDisplay(display):
-    output = ac.comment_code(display.get(0.0, tk.END))
-    print("Updating Display...")
-    display.delete(1.0, tk.END)
-    tc.apply_syntax_highlighting(display,output)
-    print("Display Updated")
+    def task():
+        code = display.get(0.0, tk.END)
+        
+        # Show loading message
+        display.delete(1.0, tk.END)
+        display.insert(tk.END, "Loading... Please wait.\n")
+        
+        # Run the potentially slow AI commenting
+        output = ac.comment_code(code)
+        
+        # Update the text widget with the commented code on the main thread
+        def update_display():
+            display.delete(1.0, tk.END)
+            tc.apply_syntax_highlighting(display, output)#Add file name
+            print("Display Updated")
+
+        display.after(0, update_display)
+
+    # Run the task in a background thread so the UI doesn't freeze
+    threading.Thread(target=task, daemon=True).start()
 
 
 CreateGUI()
