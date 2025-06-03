@@ -44,7 +44,7 @@ Make sure you have:
 
 ### Option 2: Run the Standalone Executable
 
-1. Download the pre-built `.exe` file from the [Releases](#) (link placeholder).
+1. Download the pre-built `.exe` file from the [Releases](https://github.com/MikePerez2022/AIAutoCommenter/releases/tag/v1.0.0).
 2. Double-click to launch the app.
 3. **Note:** Ollama must be installed and running. You can get it from [https://ollama.com](https://ollama.com).
 
