@@ -24,7 +24,7 @@ def CreateGUI():
     text_frame.pack(padx=20, pady=10, fill="both", expand=True)
     
     display = tk.Text(text_frame, bg="#131313", fg="white", insertbackground="white", bd=0, highlightthickness=1,
-    highlightbackground="#282828", font=("Consolas", 16), wrap="word")
+    highlightbackground="#282828", font=("Consolas", 16))
     display.pack(fill="both", expand=True)
     tc.configure_tags(display)
     
@@ -43,7 +43,7 @@ def CreateGUI():
     loading_label = ctk.CTkLabel(window, text="", font=("Consolas", 16))
     loading_label.pack(pady=5)
     
-    AIComment = ctk.CTkButton(actions_frame, text="Comment file", command=lambda: CommentAndDisplay(display, stream_var.get(), loading_label))
+    AIComment = ctk.CTkButton(actions_frame, text="Comment file", command=lambda: CommentAndDisplay(display, stream_var.get(), loading_label, filePath.get()))
     AIComment.grid(row=0, column=1, padx=5)
     
     downloadBtn = ctk.CTkButton(actions_frame, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display.get(0.0, tk.END)))
@@ -52,7 +52,7 @@ def CreateGUI():
     window.mainloop()
 
 
-def CommentAndDisplay(display, stream=True, loading_label=None):
+def CommentAndDisplay(display, stream=True, loading_label=None, filepath=None):
     def strip_code_fences(text):
         text = text.strip()
         if text.startswith("'''") and text.endswith("'''"):
@@ -84,7 +84,8 @@ def CommentAndDisplay(display, stream=True, loading_label=None):
 
     def task():
         code = display.get(0.0, tk.END)
-        filename = "file.py"  # Or get from filePath if available
+        # Use the actual file path for syntax highlighting
+        filename = filepath if filepath else "file.py"
         display.delete(1.0, tk.END)
         display.insert(tk.END, "Generating...\n")
         display.see(tk.END)
@@ -92,12 +93,14 @@ def CommentAndDisplay(display, stream=True, loading_label=None):
         if not stream:
             # Start loading animation for non-streaming
             display.after(0, start_loading_animation)
+        # Only generate comments, not code with comments inserted
         for chunk in ac.comment_code(code, stream=stream):
             cleaned_chunk = strip_code_fences(chunk)
             last_chunk = cleaned_chunk
             def update_display(chunk=cleaned_chunk):
                 display.delete(1.0, tk.END)
                 display.insert(tk.END, chunk)
+                # Use the file type for syntax highlighting
                 tc.apply_syntax_highlighting(display, chunk, filename)
             display.after(0, update_display)
         def highlight_final():
