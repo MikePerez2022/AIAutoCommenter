@@ -34,7 +34,16 @@ def CreateGUI():
     displayBtn = ctk.CTkButton(actions_frame, text="Load selected file", command=lambda: fs.DisplayFileGUI(filePath.get(), display))
     displayBtn.grid(row=0, column=0, padx=5)
     
-    AIComment = ctk.CTkButton(actions_frame, text="Comment file", command=lambda: CommentAndDisplay(display))
+    # Add a variable and checkbox for streaming toggle
+    stream_var = tk.BooleanVar(value=True)
+    stream_checkbox = ctk.CTkCheckBox(window, text="Stream code generation", variable=stream_var, onvalue=True, offvalue=False)
+    stream_checkbox.pack(pady=5)
+    
+    # Add a loading label for non-streaming mode
+    loading_label = ctk.CTkLabel(window, text="", font=("Consolas", 16))
+    loading_label.pack(pady=5)
+    
+    AIComment = ctk.CTkButton(actions_frame, text="Comment file", command=lambda: CommentAndDisplay(display, stream_var.get(), loading_label))
     AIComment.grid(row=0, column=1, padx=5)
     
     downloadBtn = ctk.CTkButton(actions_frame, text="Download displayed file", command=lambda: fs.DownloadFileGUI(filePath.get(), display.get(0.0, tk.END)))
@@ -43,7 +52,7 @@ def CreateGUI():
     window.mainloop()
 
 
-def CommentAndDisplay(display):
+def CommentAndDisplay(display, stream=True, loading_label=None):
     def strip_code_fences(text):
         text = text.strip()
         if text.startswith("'''") and text.endswith("'''"):
@@ -53,6 +62,25 @@ def CommentAndDisplay(display):
         if text.startswith("```") and text.endswith("```"):
             return text[3:-3].strip()
         return text
+    
+    def start_loading_animation():
+        # Simple animated dots
+        if loading_label is None:
+            return
+        loading_label._dots = 0
+        def animate():
+            if getattr(loading_label, '_loading', False):
+                dots = '.' * (loading_label._dots % 4)
+                loading_label.configure(text=f"Generating{dots}")
+                loading_label._dots += 1
+                loading_label.after(500, animate)
+        loading_label._loading = True
+        animate()
+
+    def stop_loading_animation():
+        if loading_label is not None:
+            loading_label._loading = False
+            loading_label.configure(text="")
 
     def task():
         code = display.get(0.0, tk.END)
@@ -61,7 +89,10 @@ def CommentAndDisplay(display):
         display.insert(tk.END, "Generating...\n")
         display.see(tk.END)
         last_chunk = ""
-        for chunk in ac.comment_code(code):
+        if not stream:
+            # Start loading animation for non-streaming
+            display.after(0, start_loading_animation)
+        for chunk in ac.comment_code(code, stream=stream):
             cleaned_chunk = strip_code_fences(chunk)
             last_chunk = cleaned_chunk
             def update_display(chunk=cleaned_chunk):
@@ -71,9 +102,16 @@ def CommentAndDisplay(display):
             display.after(0, update_display)
         def highlight_final():
             tc.apply_syntax_highlighting(display, last_chunk, filename)
+            if not stream:
+                stop_loading_animation()
             print("Display Updated")
         display.after(0, highlight_final)
+        
     threading.Thread(target=task, daemon=True).start()
+
+
+
+
 
 
 CreateGUI()
