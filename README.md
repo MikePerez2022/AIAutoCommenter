@@ -9,7 +9,7 @@ Built with a clean, modern interface using `tkinter` and `customtkinter`, the ap
 ## Features
 
 * **Select `.py` Files** – Load any Python script into the app via the GUI.
-* **AI-Powered Commenting** – Leverages a locally running LLM (e.g., `codellama:7b` via Ollama) to generate useful, descriptive comments.
+* **AI-Powered Commenting** – Leverages a locally running LLM (`wizardcoder:latest` via Ollama) to generate useful, descriptive comments.
 * **Save Updated Code** – Save the modified, commented version of the file with one click & a folder select.
 * **Modern GUI** – Built with `tkinter` and `customtkinter` for a polished user experience.
 * **Runs as Executable** – Packaged with `PyInstaller` for Windows. No need to install Python. Only need to install ollama.
@@ -19,7 +19,7 @@ Built with a clean, modern interface using `tkinter` and `customtkinter`, the ap
 ## Technologies Used
 
 * **Python 3.11**
-* **CodeLlama (via Ollama)**
+* **wizardcoder (via Ollama)**
 * **tkinter** / **customtkinter**
 * **PyInstaller**
 
@@ -38,7 +38,7 @@ python Application.py
 Make sure you have:
 
 * Python 3.11 installed
-* Ollama running (`ollama run codellama:7b`)
+* Ollama running (`ollama run wizardcoder:latest`)
 
 ---
 
@@ -66,18 +66,18 @@ Make sure you have:
 * **Windows OS**
 * **Ollama installed** – [Download from ollama.com](https://ollama.com)
 * **Model pulled and running:**
-  The app communicates with a local AI model through Ollama. Before running the app, make sure the required model (`codellama:7b`) has been pulled.
+  The app communicates with a local AI model through Ollama. Before running the app, make sure the required model (`wizardcoder:latest`) has been pulled.
 
 ### ⚙️ First-time setup (run this once in your terminal or command prompt):
 
 ```bash
-ollama pull codellama:7b
+ollama pull wizardcoder:latest
 ```
 
 or:
 
 ```bash
-ollama run codellama:7b
+ollama run wizardcoder:latest
 ```
 
 > ⚠️ If the model hasn’t been pulled before launching the app, it will not work and may return a connection or model-not-found error.
